@@ -3,6 +3,8 @@
 <html lang="ja">
 
   <head>
+    <title>Popovの超安定論</title>
+
     <script type="text/x-mathjax-config">
 
        MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}});
@@ -14,32 +16,129 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 
     </script>
-
   </head>
 
-  <body>
-    <p>Popovの超安定論</p>
+  <div class="header">
+     <h3 class="header-logo">Popovの超安定論 </h3>
 
-    <p>Popovの超安定論は動的システムが次の二つの条件を満足するとき、動的システムは安定(超安定)であることを示しています。</p>
+  <body>
+    <img src="PopovBlock.bmp" width=600px>
+
+    <p>Popovの超安定論は図に示す線形定常ブロックと非線形時変ブロックで構成されるフィードバックシステムが次の二つの条件を満足するとき、そのフィードバックシステムは安定(超安定)であることを示しています。</p>
 
     <p>・線形ブロックの伝達関数が強正実条件を満足する。</p>
     <p>・Popovの積分不等式が成立する。</p>
 
     <p>強正実条件:</p>
-    <p>線形ブロックの伝達関数\(G(s)\)が次の条件を満足することです。</p>
+    <p>線形ブロックの伝達関数\(G(s)\)が次の条件を満足することです。(\(s\)はラプラス変数です。)</p>
       <p>(1)\(G(s)\)が実のsに対して実である。</p>
-      <p>(2)\(G(s)\)が漸近的に安定、すなわちs面の右半平面\(Re[s]\ge0\)に極がない。</p>
-      <p>(3)\(-\infty <\omega<  \infty\)のすべての\(\omega\)に対して\(Re[G(j\omega)]\ge0\)。</p>
+      <p>(2)\(G(s)\)が漸近的に安定、すなわちs面の右半平面\(Re[s]\ge0\)に極がない。(\(Re[*]\)は\(*\)の実数部分です。)</p>
+      <p>(3)\(-\infty < \omega <  \infty\)のすべての\(\omega\)に対して\(Re[G(j\omega)]\ge0\)。
+        (\(j\)は虚数単位、\(\omega\)は角振動数です。)
+      </p>
 
     <p>Popovの積分不等式:</p>
 
-    <p>線形ブロックの出力を\(\varepsilon\)、非線形ブロックの出力を\(r\)として、Popovの積分不等式は次式で与えられます。</p>
+    <p>線形ブロックの出力を\(v\)、非線形ブロックの出力を\(w\)として、Popovの積分不等式は次式で与えられます。</p>
 
     \begin{align}
-    \int_{0}^{t}r\varepsilon dt \ge -\gamma_0^2
+    \int_{0}^{t}vw dt \ge -\gamma_0^2
     \end{align}
 
     <p>ここに、\(\gamma_0\)は定数です。</p>
-</body>
+
+    <p>それでは、具体的なフィードバックシステムについて考察してみましょう。</p>
+    <p>ここでは入力\(u\)、出力\(x\)とし、調整可能な定数\(\hat b(> 0)\)含む下記の実システムを想定します。</p>
+    \begin{align}
+    \ddot x + a_1\dot x + a_2 x = \hat{b}u \label{eq:RealSys}
+    \end{align}
+
+    それでは、超安定論に従って定数\(b\)の調整則を決定しましょう。
+    まず、このシステムに対して下記の規範モデルを与えます。
+    \begin{align}
+    \ddot x_M + a_1\dot x_M + a_2 x_M = bu \label{eq:RefMdl}
+    \end{align}
+
+    <p>ここに、\(x_M\)は規範モデルの出力、\(b (> 0)\)は定数です。
+      そこで、実システムの\(\hat b\)を調整して、規範モデルの係数\(\hat b\)と一致させる方法を見つけましょう。
+      両者が一致すれば、\(x\)は\(x_M\)と一致します。
+    </p>
+    <p>まず、式\eqref{eq:RefMdl}の両辺から式\eqref{eq:RealSys}の両辺をそれぞれ引きます。</p>
+    \begin{align*}
+    (\ddot x_M - \ddot x) + a_1(\dot x_M - \dot x) + a_2(x_M - x) = (\hat b - b)u
+    \end{align*}
+
+    <p>次に\(e=\dot x_M - \dot x\)、\(\tilde b =\hat b - b\)とおくと、次式になります。</p>
+    \begin{align}
+    \ddot e + a_1\dot e + a_2 e = -\tilde b u \label{eq:ErrSys}
+    \end{align}
+
+    <p>式\eqref{eq:ErrSys}の左辺を定常線形ブロック、右辺を非線形時変ブロックに分け、フィードバックシステムを構成します。</p>
+    <p>\(-w\)を入力、\(v\)を出力とする線形定常ブロック：</p>  
+    \begin{align}
+    \ddot e + a_1\dot e + a_2 e &= -w\\
+    v &= e + c\dot{e}
+    \end{align}
+
+    <p>\(v\)を入力、\(w\)を出力とする非線形時変ブロック：</p>
+    \begin{align}
+     w = \tilde b(v) u
+    \end{align}
+
+    <p>これで、Popovの超安定論を適用するための線形定常ブロックと線形定常ブロックを構成し、
+      互いの入出力関係を確認できました。後(式\eqref{eq:ModPara})で分かりますが\(\tilde b\)は\(v\)に依存するので、
+      \(\tilde{b} = \tilde{b}(v)\)と表記しています。
+      まず、Popovの積分不等式を満足させましょう。</p>
+    <p>Popov積分:</p>
+    \begin{align}
+    \int_{0}^{t}vw dt = \int_{0}^{t}\tilde b u v dt
+    \end{align}
+
+    <p>Popovの積分不等式を満足させるために次式を与えます。</p>
+    \begin{align}
+     \dot{\tilde b}(v) = \alpha u v \label{eq:ModPara}
+    \end{align}
+
+    <p>ここに、\(\alpha\)は定数です。すると、Popovの積分不等式が満足されることを次式で確認できます。</p>
+    \begin{align*}
+    \int_{0}^{t}vw dt = \frac{1}{\alpha}\int_{0}^{t}\dot{\tilde b} \tilde b dt 
+    = \frac{1}{2\alpha}[\tilde b^2]_0^t \ge -\frac{1}{2\alpha}\tilde b^2|_{t=0}
+    \end{align*}
+
+    <p>次に強正実条件を確認します。
+      \(v\)、\(w\)のラプラス変換をそれぞれ\(V(s)\)、\(W(s)\)とすると、
+      \(v\)から\(w\)への伝達関数は次式となります。
+    </p>
+    \begin{align}
+     G(s) = -\frac{V(s)}{W(s)} = \frac{1 + cs}{s^2 + a_1 s +a_2} \label{eq:TrnsFnc}
+    \end{align}
+
+    <p>実数のsに対してG(s)は実数となり、極(分母：\(s^2 + a_1 s +a_2=0\)の解)の実数部分は\(-a_2/2\)なのでs面の右半平面\(Re[s]\ge0\)に極はありません。
+      したがって、強正実条件(1)、(2)を満足します。
+      式\eqref{eq:TrnsFnc}の\(s\)に\(j\omega \)を代入します。
+    </p>
+    \begin{align*}
+     Re[G(j\omega)] = Re[\frac{1+jc\omega}{a_2 - \omega^2 + ja_1 \omega}] 
+     = Re[\frac{(1+jc\omega)\{(a_2 - \omega^2) - ja_1 \omega\}}{(a_2 - \omega^2)^2 + (a_1\omega)^2}]
+     = \frac{a_2 + (a_1c -1)\omega^2}{(a_2 - \omega^2)^2 + (a_1\omega)^2}
+    \end{align*}
+    <p>\(a_1c -1 > 0\)であれば\(Re[G(j\omega)] > 0\)となり、強正実条件(3)が確認できます。</p>
+    <p>\(b\)が定数であること(\(\dot b = 0\))に注意すれば、式\eqref{eq:ModPara}の\(\dot{\tilde b}=\dot{\hat b}\)です。
+      そこで、次式が成立するように実システムの\(\hat b\)を調整します。
+    </p>
+    \begin{align}
+     \dot{\hat b} = \alpha u v
+    \end{align}
+
+    <p>これで、Popovの超安定条件が満足されるので次式が成立します。</p>
+    \begin{align*}
+    \lim_{t \rightarrow \infty} v = 0,~~~\lim_{t \rightarrow \infty} \hat b = b.
+    \end{align*}
+
+    <p>こうして実システムは漸近的に規範モデルと一致します。
+      <a href="https://aoyamakohbo.github.io/AdaptCont/">モデル規範適応制御</a>ではより具体的に説明します。</p>
+      
+    <p><a href="https://aoyamakohbo.github.io/Craftlogy/">->TOP</a></p>
+  </body>
 
 </html>
