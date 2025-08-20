@@ -22,7 +22,8 @@
      <h3 class="header-logo">Popovの超安定論 </h3>
 
   <body>
-    <img src="PopovBlock.bmp" width=600px>
+    <h3>§超安定論の定式化</h3>
+    <img src="PopovBlock.bmp" width=400px>
 
     <p>Popovの超安定論は図に示す線形定常ブロックと非線形時変ブロックで構成されるフィードバックシステムが次の二つの条件を満足するとき、そのフィードバックシステムは安定(超安定)であることを示しています。</p>
 
@@ -39,28 +40,28 @@
 
     <p>Popovの積分不等式:</p>
 
-    <p>線形ブロックの出力を\(v\)、非線形ブロックの出力を\(w\)として、Popovの積分不等式は次式で与えられます。</p>
+    <p>線形ブロックの出力を\(\varepsilon\)、非線形ブロックの出力を\(w\)として、Popovの積分不等式は次式で与えられます。</p>
 
     \begin{align}
-    \int_{0}^{t}vw dt \ge -\gamma_0^2
+    \int_{0}^{t}\varepsilon w dt \ge -\gamma_0^2
     \end{align}
-
     <p>ここに、\(\gamma_0\)は定数です。</p>
 
+    <h3>§超安定論の例題</h3>
     <p>それでは、具体的なフィードバックシステムについて考察してみましょう。</p>
     <p>ここでは入力\(u\)、出力\(x\)とし、調整可能な定数\(\hat b(> 0)\)含む下記の実システムを想定します。</p>
     \begin{align}
     \ddot x + a_1\dot x + a_2 x = \hat{b}u \label{eq:RealSys}
     \end{align}
 
-    それでは、超安定論に従って定数\(b\)の調整則を決定しましょう。
+    超安定論に従って定数\(b\)の調整則を決定しましょう。
     まず、このシステムに対して下記の規範モデルを与えます。
     \begin{align}
     \ddot x_M + a_1\dot x_M + a_2 x_M = bu \label{eq:RefMdl}
     \end{align}
 
     <p>ここに、\(x_M\)は規範モデルの出力、\(b (> 0)\)は定数です。
-      そこで、実システムの\(\hat b\)を調整して、規範モデルの係数\(\hat b\)と一致させる方法を見つけましょう。
+      そこで、実システムの\(\hat b\)を調整して、規範モデルの係数\(\hat b\)と一致させる方法を見つけます。
       両者が一致すれば、\(x\)は\(x_M\)と一致します。
     </p>
     <p>まず、式\eqref{eq:RefMdl}の両辺から式\eqref{eq:RealSys}の両辺をそれぞれ引きます。</p>
@@ -74,43 +75,44 @@
     \end{align}
 
     <p>式\eqref{eq:ErrSys}の左辺を定常線形ブロック、右辺を非線形時変ブロックに分け、フィードバックシステムを構成します。</p>
-    <p>\(-w\)を入力、\(v\)を出力とする線形定常ブロック：</p>  
+    <p>\(-w\)を入力、\(\varepsilon\)を出力とする線形定常ブロック：</p>  
     \begin{align}
     \ddot e + a_1\dot e + a_2 e &= -w\\
-    v &= e + c\dot{e}
+    \varepsilon &= e + c\dot{e}
     \end{align}
 
-    <p>\(v\)を入力、\(w\)を出力とする非線形時変ブロック：</p>
+    <p>\(\varepsilon\)を入力、\(w\)を出力とする非線形時変ブロック：</p>
     \begin{align}
-     w = \tilde b(v) u
+     w = \tilde b(\varepsilon) u
     \end{align}
 
     <p>これで、Popovの超安定論を適用するための線形定常ブロックと線形定常ブロックを構成し、
-      互いの入出力関係を確認できました。後(式\eqref{eq:ModPara})で分かりますが\(\tilde b\)は\(v\)に依存するので、
-      \(\tilde{b} = \tilde{b}(v)\)と表記しています。
+      互いの入出力関係を確認できました。後(式\eqref{eq:ModPara})で分かりますが、
+      \(\tilde b\)は\(\varepsilon\)に依存するので、
+      \(\tilde{b} = \tilde{b}(\varepsilon)\)と表記しています。
       まず、Popovの積分不等式を満足させましょう。</p>
     <p>Popov積分:</p>
     \begin{align}
-    \int_{0}^{t}vw dt = \int_{0}^{t}\tilde b u v dt
+    \int_{0}^{t}\varepsilon w dt = \int_{0}^{t}\tilde b u \varepsilon dt
     \end{align}
 
     <p>Popovの積分不等式を満足させるために次式を与えます。</p>
     \begin{align}
-     \dot{\tilde b}(v) = \alpha u v \label{eq:ModPara}
+     \dot{\tilde b}(\varepsilon) = \alpha u \varepsilon \label{eq:ModPara}
     \end{align}
 
     <p>ここに、\(\alpha\)は定数です。すると、Popovの積分不等式が満足されることを次式で確認できます。</p>
     \begin{align*}
-    \int_{0}^{t}vw dt = \frac{1}{\alpha}\int_{0}^{t}\dot{\tilde b} \tilde b dt 
+    \int_{0}^{t}\varepsilon w dt = \frac{1}{\alpha}\int_{0}^{t}\dot{\tilde b} \tilde b dt 
     = \frac{1}{2\alpha}[\tilde b^2]_0^t \ge -\frac{1}{2\alpha}\tilde b^2|_{t=0}
     \end{align*}
 
     <p>次に強正実条件を確認します。
-      \(v\)、\(w\)のラプラス変換をそれぞれ\(V(s)\)、\(W(s)\)とすると、
-      \(v\)から\(w\)への伝達関数は次式となります。
+      \(\varepsilon\)、\(w\)のラプラス変換をそれぞれ\(E(s)\)、\(W(s)\)とすると、
+      \(\varepsilon\)から\(w\)への伝達関数は次式となります。
     </p>
     \begin{align}
-     G(s) = -\frac{V(s)}{W(s)} = \frac{1 + cs}{s^2 + a_1 s +a_2} \label{eq:TrnsFnc}
+     G(s) = -\frac{E(s)}{W(s)} = \frac{1 + cs}{s^2 + a_1 s +a_2} \label{eq:TrnsFnc}
     \end{align}
 
     <p>実数のsに対してG(s)は実数となり、極(分母：\(s^2 + a_1 s +a_2=0\)の解)の実数部分は\(-a_2/2\)なのでs面の右半平面\(Re[s]\ge0\)に極はありません。
@@ -127,12 +129,12 @@
       そこで、次式が成立するように実システムの\(\hat b\)を調整します。
     </p>
     \begin{align}
-     \dot{\hat b} = \alpha u v
+     \dot{\hat b} = \alpha u \varepsilon
     \end{align}
 
     <p>これで、Popovの超安定条件が満足されるので次式が成立します。</p>
     \begin{align*}
-    \lim_{t \rightarrow \infty} v = 0,~~~\lim_{t \rightarrow \infty} \hat b = b.
+    \lim_{t \rightarrow \infty} \varepsilon = 0,~~~\lim_{t \rightarrow \infty} \hat b = b.
     \end{align*}
 
     <p>こうして実システムは漸近的に規範モデルと一致します。
